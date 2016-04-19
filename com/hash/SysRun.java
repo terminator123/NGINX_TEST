@@ -16,6 +16,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
+import javax.swing.text.html.HTMLDocument.Iterator;
+
 public class SysRun {
 
 	String filename;
@@ -80,11 +82,13 @@ public class SysRun {
 				           Integer count = map.get(temp);  
 				           map.put(temp, (count == null) ? 1 : count + 1); 
 				     }  
-					for (Entry<String, Integer> entry : map.entrySet()) {  
-						if(entry.getValue() < 2){
-				        	   map.remove(entry.getKey());
-				           }
-					} 
+					java.util.Iterator<Entry<String, Integer>> it = map.entrySet().iterator();
+					while(it.hasNext()){
+						Entry<String, Integer> mapentry = it.next(); 
+						if(mapentry.getValue() < 2)
+							it.remove();
+						
+					}
 					map.remove(doc_id);
 					System.out.println(doc_id + "\t" + map.keySet());
 					exs.shutdown();
