@@ -22,8 +22,8 @@ import javax.swing.text.html.HTMLDocument.Iterator;
 public class SysRun {
 
 	String filename;
-	public String[] hashmethods = {"RSHash", "APHash", "DJBHash","PJWHash"};
-	//public String[] hashmethods = {"APHash"};
+	//public String[] hashmethods = {"RSHash", "APHash", "DJBHash","PJWHash"};
+	public String[] hashmethods = {"APHash"};
 	public List<HashTable> tlist = new ArrayList<HashTable>();
 	public Set<String> checked = new HashSet<String>();
 	
@@ -58,6 +58,7 @@ public class SysRun {
 		try{
 			reader = new BufferedReader(new FileReader(input));
 			String line = null;
+			int number = 0;
 			while((line = reader.readLine()) != null){
 					String[] str = line.split("\t");
 					if(str.length < 2)
@@ -98,7 +99,7 @@ public class SysRun {
 					java.util.Iterator<Entry<String, Integer>> it = map.entrySet().iterator();
 					while(it.hasNext()){
 						Entry<String, Integer> mapentry = it.next(); 
-						if(mapentry.getValue() < 2)
+						if(mapentry.getValue() < 0)
 							it.remove();
 						
 					}
@@ -107,7 +108,8 @@ public class SysRun {
 						System.out.println(doc_id + "\t" + map.keySet());
 					checked.add(doc_id);
 					checked.addAll(map.keySet());
-					
+					if(number % 10000 == 0)
+					number ++;
 			}
 		}catch(Exception e){
 			e.printStackTrace();

@@ -27,13 +27,20 @@ public class InsertThread extends Thread{
 		try{
 			reader = new BufferedReader(new FileReader(input));
 			String line = null;
+			int count = 0;
 			while((line = reader.readLine()) != null){
+					
 					String[] str = line.split("\t");
+					if(str.length < 2)
+						continue;
 					String doc_id = str[0];
 					String tokens = str[1];
 					SimHash hash = new SimHash(tokens, 32, this.hashMethod);
 					List<String> indexes = hash.subByDistance(hash,3);
 					table.insert(hash.strSimHash, doc_id, indexes, hashMethod);
+					count ++;
+					if(count % 10000 == 0)
+						System.out.println(count + " insert finished");
 				}
 				
 		}catch(Exception e){

@@ -139,8 +139,9 @@ public class SimHash {
         		buffer.append("0");
         	}
         	if( (i+1)%numEach == 0 ){
+        		characters.add(buffer.toString());
             	buffer.delete(0, buffer.length());
-            	characters.add(buffer.toString());
+            	
         	}
         }
     	return characters;
@@ -149,7 +150,7 @@ public class SimHash {
     public static void main(String[] args) {
     	String s = "淘宝 促销 近期";
         SimHash hash1 = new SimHash(s, 32,"RSHash");
-        hash1.subByDistance(hash1, 3);
+        System.out.println(hash1.subByDistance(hash1, 3).toString());
 
     }
 }
